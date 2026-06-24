@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Instagram Unfollowers</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header class="header">
+    <div class="header-brand">
+      <span class="brand-icon">◈</span>
+      <span class="brand-name">Unfollowers</span>
+    </div>
+    <div class="header-meta" id="lastScanLabel"></div>
+  </header>
+
+  <!-- ── Auth Warning ─────────────────────────────────────────────────────── -->
+  <div class="auth-banner" id="authBanner" hidden>
+    <span class="auth-icon">⚠</span>
+    <span id="authMsg">Open instagram.com and log in first, then re-open this panel.</span>
+    <a href="https://www.instagram.com" target="_blank" class="auth-link">Open Instagram →</a>
+  </div>
+
+  <!-- ── Scan Controls ────────────────────────────────────────────────────── -->
+  <section class="controls" id="controlsSection">
+    <button class="btn btn-primary" id="scanBtn">
+      <span class="btn-icon">⟳</span> Scan My Account
+    </button>
+    <button class="btn btn-ghost" id="clearBtn">Clear Data</button>
+  </section>
+
+  <!-- ── Progress ─────────────────────────────────────────────────────────── -->
+  <div class="progress-wrap" id="progressWrap" hidden>
+    <div class="progress-label" id="progressLabel">Starting…</div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="progressBarFill"></div>
+    </div>
+    <div class="progress-counters" id="progressCounters"></div>
+  </div>
+
+  <!-- ── Error ─────────────────────────────────────────────────────────────  -->
+  <div class="error-box" id="errorBox" hidden>
+    <span class="error-icon">✕</span>
+    <span id="errorText"></span>
+  </div>
+
+  <!-- ── Stats Bar ─────────────────────────────────────────────────────────  -->
+  <div class="stats-bar" id="statsBar" hidden>
+    <div class="stat">
+      <span class="stat-value" id="statFollowing">—</span>
+      <span class="stat-label">Following</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-value" id="statFollowers">—</span>
+      <span class="stat-label">Followers</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-value accent" id="statNonFollowers">—</span>
+      <span class="stat-label">Not Following Back</span>
+    </div>
+  </div>
+
+  <!-- ── Toolbar ───────────────────────────────────────────────────────────── -->
+  <div class="toolbar" id="toolbar" hidden>
+    <input class="search-input" id="searchInput" type="search" placeholder="Search username…" />
+    <div class="toolbar-right">
+      <label class="filter-label">
+        <select class="filter-select" id="filterSelect">
+          <option value="all">All</option>
+          <option value="public">Public</option>
+          <option value="private">Private</option>
+          <option value="verified">Verified</option>
+        </select>
+      </label>
+      <button class="btn btn-sm btn-ghost" id="selectAllBtn">Select All</button>
+    </div>
+  </div>
+
+  <!-- ── User List ─────────────────────────────────────────────────────────── -->
+  <div class="user-list" id="userList"></div>
+
+  <!-- ── Bulk Action Bar ──────────────────────────────────────────────────── -->
+  <div class="bulk-bar" id="bulkBar" hidden>
+    <span class="bulk-count" id="bulkCount">0 selected</span>
+    <div class="bulk-actions">
+      <button class="btn btn-sm btn-ghost" id="deselectAllBtn">Deselect</button>
+      <button class="btn btn-sm btn-danger" id="unfollowSelectedBtn">Unfollow Selected</button>
+    </div>
+  </div>
+
+  <!-- ── Empty State ───────────────────────────────────────────────────────── -->
+  <div class="empty-state" id="emptyState" hidden>
+    <div class="empty-icon">✓</div>
+    <div class="empty-title">Everyone follows you back!</div>
+    <div class="empty-sub">Nothing to see here.</div>
+  </div>
+
+  <!-- ── Confirm Modal ────────────────────────────────────────────────────── -->
+  <div class="modal-overlay" id="modalOverlay" hidden>
+    <div class="modal">
+      <div class="modal-title">Unfollow <span id="modalCount"></span> users?</div>
+      <div class="modal-body" id="modalBody"></div>
+      <div class="modal-warning">
+        ⚠ Instagram may flag rapid unfollowing. The extension adds delays between requests. Still, use this feature responsibly.
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="modalCancel">Cancel</button>
+        <button class="btn btn-danger" id="modalConfirm">Unfollow</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Unfollow Progress Modal ──────────────────────────────────────────── -->
+  <div class="modal-overlay" id="unfollowProgressOverlay" hidden>
+    <div class="modal">
+      <div class="modal-title">Unfollowing…</div>
+      <div class="modal-body" id="unfollowProgressText">Processing…</div>
+      <div class="progress-bar-track" style="margin:12px 0">
+        <div class="progress-bar-fill" id="unfollowProgressFill"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="unfollowCancelBtn">Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
