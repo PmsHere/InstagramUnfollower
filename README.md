@@ -42,7 +42,7 @@ Find everyone you follow who doesn't follow you back — and optionally unfollow
 
 1. **Download or clone this repository:**
    ```
-   git clone https://github.com/yourname/instagram-unfollowers
+   git clone https://github.com/PmsHere/instagram-unfollowers
    ```
    Or download and unzip the ZIP file.
 
